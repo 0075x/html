@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>chaostyc</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
-
-  <!-- Fonte Pixel Operator -->
   <style>
     @font-face {
       font-family: 'Pixel Operator';
       src: url('https://fonts.cdnfonts.com/s/16470/PixelOperator.ttf') format('truetype');
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: black url('https://imgur.com/97ca6an.png') no-repeat right center;
-      background-size: cover;
+      background: black;
       color: white;
       font-family: 'Pixel Operator', monospace;
       display: flex;
@@ -31,16 +20,44 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
       overflow: hidden;
       position: relative;
     }
 
+    /* Fundo fixo à direita com imagem enviada */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; right: 0;
+      width: 40vw; height: 100vh;
+      background: url('https://github.com/user-attachments/assets/d8dfdb39-8b86-42b0-8a48-d56160046179') no-repeat center;
+      background-size: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Filtros: glitch granulado sobre o fundo */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; right: 0;
+      width: 40vw; height: 100vh;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 2px, transparent 3px, transparent 4px),
+        url('https://media.githubusercontent.com/media/epistemik-co/lab-assets/main/vhs-noise.gif');
+      background-size: auto, cover;
+      mix-blend-mode: lighten;
+      opacity: 0.07;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     .container {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       text-align: center;
       max-width: 400px;
+      padding: 20px;
     }
 
     #typing {
@@ -49,20 +66,15 @@
       border-right: 3px solid white;
       overflow: hidden;
       width: 18ch;
-      margin-bottom: 30px;
-      text-shadow:
-        2px 0 rgba(255, 0, 0, 0.6),
-        -2px 0 rgba(0, 0, 255, 0.6);
+      margin: 0 auto 30px;
+      text-shadow: 2px 0 rgba(255, 0, 0, 0.6), -2px 0 rgba(0, 0, 255, 0.6);
       animation: typing 2s steps(9) alternate infinite, blink 0.7s step-end infinite;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     @keyframes typing {
       0% { width: 0; }
       100% { width: 18ch; }
     }
-
     @keyframes blink {
       50% { border-color: transparent; }
     }
@@ -71,9 +83,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-top: 30px;
+      margin-bottom: 40px;
     }
-
     .social-link {
       display: flex;
       align-items: center;
@@ -83,13 +94,10 @@
       font-size: 1rem;
       transition: color 0.3s, transform 0.3s;
     }
-
     .social-link img {
-      width: 20px;
-      height: 20px;
+      width: 20px; height: 20px;
       filter: invert(1);
     }
-
     .social-link:hover {
       color: #ff00ff;
       transform: scale(1.05);
@@ -103,165 +111,99 @@
       width: 330px;
       margin: 40px auto 0;
     }
-
-    .track-info {
-      font-size: 0.8rem;
-      margin-bottom: 8px;
-    }
-
-    .note {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-
+    .track-info { font-size: 0.8rem; margin-bottom: 8px; }
+    .note { font-size: 1.4rem; margin-bottom: 10px; }
     .progress-bar {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
-      gap: 5px;
-      font-size: 0.75rem;
+      gap: 5px; font-size: 0.75rem;
       margin-bottom: 10px;
     }
-
     .bar {
-      background: #444;
-      flex: 1;
-      height: 6px;
-      position: relative;
-      border-radius: 3px;
-      overflow: hidden;
+      background: #444; flex: 1;
+      height: 6px; position: relative;
+      border-radius: 3px; overflow: hidden;
     }
-
     .fill {
-      background: #ff00ff;
-      height: 100%;
-      width: 0%;
-      transition: width 0.1s linear;
+      background: #ff00ff; height: 100%;
+      width: 0%; transition: width 0.1s linear;
     }
-
     .controls {
       font-size: 0.85rem;
       letter-spacing: 2px;
       cursor: default;
     }
-
     #play-btn {
       cursor: pointer;
       color: #ff00ff;
     }
 
-    .vhs-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.03),
-          rgba(255, 255, 255, 0.03) 2px,
-          transparent 3px,
-          transparent 4px
-        ),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 255, 0.03));
-      mix-blend-mode: screen;
-      animation: flickerSlow 12s infinite alternate, scanlines 0.2s linear infinite;
-      z-index: 999;
-    }
-
-    .vhs-noise {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: url('https://media.githubusercontent.com/media/epistemik-co/lab-assets/main/vhs-noise.gif') center/cover no-repeat;
-      mix-blend-mode: lighten;
-      opacity: 0.07;
-      z-index: 998;
-    }
-
-    @keyframes flickerSlow {
-      0%, 100% { opacity: 0.04; }
-      50% { opacity: 0.1; }
-    }
-
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
+    /* Proteção superficial */
+    body { user-select: none; }
+    body, body * { -webkit-touch-callout: none; }
+    document; /* placeholders for script below */
   </style>
+
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' ||
+         (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
+         (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </head>
-<body oncontextmenu="return false;">
+
+<body>
   <div class="container">
     <div id="typing">chaostyc</div>
 
     <div class="social-icons">
-      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord"> chaostyc
-      </a>
-      <a class="social-link" href="https://x.com/knup06D" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png" alt="Twitter"> knup06D
-      </a>
-      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> stew5kk
-      </a>
+      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord"> chaostyc</a>
+      <a class="social-link" href="https://x.com/knup06D" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png" alt="Twitter"> knup06D</a>
+      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> stew5kk</a>
     </div>
 
-    <!-- Player de Música -->
     <div class="music-terminal">
       <div class="track-info">ᴺᵒʷ ᵖˡᵃʸᶦⁿᵍ; [ Trxy! - Realize ]</div>
       <div class="note">♬</div>
       <div class="progress-bar">
         <span id="current-time">0:00</span>
-        <div class="bar">
-          <div class="fill" id="bar-fill"></div>
-        </div>
+        <div class="bar"><div class="fill" id="bar-fill"></div></div>
         <span id="duration">-0:00</span>
       </div>
       <div class="controls">⇄ ◃◃ <span id="play-btn">ⅠⅠ</span> ▹▹ ↻</div>
+      <audio id="music-player" loop>
+        <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
+      </audio>
     </div>
-
-    <audio id="music-player" loop>
-      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
-    </audio>
   </div>
 
   <div class="vhs-overlay"></div>
   <div class="vhs-noise"></div>
 
   <script>
-    const musicEl = document.getElementById("music-player");
-    const playBtn = document.getElementById("play-btn");
-    const fill = document.getElementById("bar-fill");
-    const current = document.getElementById("current-time");
-    const duration = document.getElementById("duration");
+    const music = document.getElementById('music-player');
+    const btn = document.getElementById('play-btn');
+    const fill = document.getElementById('bar-fill');
+    const cur = document.getElementById('current-time');
+    const dur = document.getElementById('duration');
     let playing = false;
 
-    playBtn.addEventListener("click", () => {
-      if (playing) {
-        musicEl.pause();
-        playBtn.textContent = "▶️";
-      } else {
-        musicEl.play();
-        playBtn.textContent = "ⅠⅠ";
-      }
+    btn.addEventListener('click', () => {
+      if (playing) { music.pause(); btn.textContent = '▶️'; }
+      else { music.play(); btn.textContent = 'ⅠⅠ'; }
       playing = !playing;
     });
 
-    function formatTime(t) {
-      const m = Math.floor(t / 60);
-      const s = Math.floor(t % 60);
-      return `${m}:${s < 10 ? '0' + s : s}`;
-    }
-
-    musicEl.addEventListener("timeupdate", () => {
-      const prog = musicEl.currentTime / musicEl.duration;
-      fill.style.width = `${prog * 100}%`;
-      current.textContent = formatTime(musicEl.currentTime);
-      duration.textContent = "-" + formatTime(musicEl.duration - musicEl.currentTime);
+    function fmt(t) { const m=Math.floor(t/60), s=Math.floor(t%60); return `${m}:${s<10?'0'+s:s}`; }
+    music.addEventListener('timeupdate', () => {
+      const p = music.currentTime/music.duration;
+      fill.style.width = `${p*100}%`;
+      cur.textContent = fmt(music.currentTime);
+      dur.textContent = '-' + fmt(music.duration-music.currentTime);
     });
   </script>
 </body>
