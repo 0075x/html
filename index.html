@@ -4,6 +4,154 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background:black;
+      color:white;
+      font-family:'Press Start 2P', cursive;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      position:relative;
+      padding:20px;
+      overflow:hidden;
+    }
+    .container {
+      text-align:center;
+      z-index:1;
+      max-width:400px;
+    }
+    #typing {
+      font-size:1.2rem;
+      white-space:nowrap;
+      border-right:3px solid white;
+      width:18ch;
+      margin-bottom:40px;
+      overflow:hidden;
+
+      /* Efeito VHS */
+      color: white;
+      text-shadow:
+        0 0 2px #fff,
+        2px 0 red,
+        -2px 0 blue;
+      animation: vhsGlitch 0.2s infinite;
+      position: relative;
+    }
+    @keyframes vhsGlitch {
+      0%   { transform: translateX(0); opacity: 1; }
+      20%  { transform: translateX(-1px); opacity: 0.95; }
+      40%  { transform: translateX(1px); opacity: 1; }
+      60%  { transform: translateX(-1.5px); opacity: 0.9; }
+      80%  { transform: translateX(1.5px); opacity: 1; }
+      100% { transform: translateX(0); }
+    }
+    .social-icons {
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      margin-bottom:40px;
+    }
+    .social-link {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:white;
+      text-decoration:none;
+      font-size:1rem;
+      transition:color .3s, transform .3s;
+    }
+    .social-link img {
+      width:25px;
+      height:25px;
+    }
+    .social-link:hover {
+      color:#ff00ff;
+      transform:scale(1.05);
+    }
+    iframe.spotify-embed {
+      border-radius:12px;
+      width:300px;
+      height:80px;
+      border:none;
+      margin:0 auto;
+      display:block;
+    }
+    .vhs-overlay {
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      background:repeating-linear-gradient(0deg,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events:none;
+      mix-blend-mode:screen;
+      animation:flicker .2s infinite alternate;
+      z-index:999;
+    }
+    @keyframes flicker {
+      0% { opacity:0.03; }
+      100% { opacity:0.07; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="typing"></div>
+    <div class="social-icons">
+      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA4UlEQVRIie2UPQ7CMAxFn8JvMEWzqEWzqEfTqUbzpOsgN+lFzWCtMchPzUEjGmXLwEFvh6UMCH6B1cLOAHuAAuAfmAGgTAsrCNjpM0NagL48C3YmEv08ldtxsw+oz+OjZRuAjYRTZBZRF64Ap+2wGuWhlD9Fo9VNdSOTB7PnbbIVMCyZBFZ3s8LsvQV2ZoBp2JrjCv4BdS0YaNtyU2Z5k+XcW4BGncAAAAASUVORK5CYII=" alt="Discord"> chaostyc
+      </a>
+      <a class="social-link" href="https://x.com/knup06D" target="_blank">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA+UlEQVRIie2UPQ6CQBBFz1pTxBxoIgdoIgp0oEcQYvINdpDRUIRPICFiHRmGByNLNWTdT1vSPdc3O7/O+bY7BUKBlJlzHmbk7AH8MGeE4lAD3wB4wbIR3IPATxw6UOUi+3/YCORO4xXowR2gsRPmlVkB/7jmyAKGVB7zOdMTnTETEtV+IuH72vAK4TT9gExzBWSrhdbzKNiBQ/FnSVdtkStG+kN7VEQdIYk7rpLAAAAAElFTkSuQmCC" alt="X"> knup06D
+      </a>
+      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABGUlEQVRIie3VQQ6CQBBF0dvE5a9FAZWb2MkeQGxqYhdhZImNVu0DRvLgMvQv1wOc+M2TDH8+83n4iABWIAVmAFbgHFH2QE/MwBF+AFvwYOQDiycOgBi4Dd8QAhWco6voKCV5zXejMPVmuQm/A3p1GnTZpj0NnDC0nvM4uRRRAmYQBz41B9MCKoUl9Z4rYFCdcLr4HTTwLF0ZDRP0RUvEk6qsfxw38u9Yg0lD0/4UlJQAAAABJRU5ErkJggg==" alt="Instagram"> stew5kk
+      </a>
+    </div>
+    <iframe class="spotify-embed"
+      src="https://open.spotify.com/embed/track/51RriaGnB6VILb54rXHKj8?utm_source=generator"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </div>
+
+  <div class="vhs-overlay"></div>
+
+  <script>
+    const text = "chaostyc";
+    const el = document.getElementById("typing");
+    let i = 0;
+    function type(){
+      if(i < text.length){
+        el.textContent += text[i++];
+        setTimeout(type, 180);
+      } else {
+        setInterval(() => {
+          el.style.borderRightColor = el.style.borderRightColor === 'transparent' ? 'white':'transparent';
+        }, 500);
+      }
+    }
+    type();
+  </script>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chaostyc</title>
 
   <!-- Fonte Press Start 2P -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
