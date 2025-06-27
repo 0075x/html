@@ -4,25 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
-
-  <!-- Favicon simples em SVG -->
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
 
-  <!-- Fonte Pixel Operator -->
   <style>
     @font-face {
       font-family: 'Pixel Operator';
       src: url('https://fonts.cdnfonts.com/s/16470/PixelOperator.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
     }
-  </style>
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
-      background: black url('https://github.com/user-attachments/assets/d3539f24-1493-4688-91b7-48d501e0a317') center/cover no-repeat fixed;
+      background: black url('https://github.com/user-attachments/assets/d3539f24-1493-4688-91b7-48d501e0a317') center center / contain no-repeat fixed;
       color: white;
       font-family: 'Pixel Operator', monospace;
       display: flex;
@@ -32,16 +29,7 @@
       min-height: 100vh;
       padding: 20px;
       overflow: hidden;
-      animation: screenShake 6s infinite ease-in-out;
-      filter: contrast(1.1) brightness(0.9);
       position: relative;
-    }
-
-    @keyframes screenShake {
-      0%, 100% { transform: translate(0, 0) skew(0deg, 0deg); }
-      25% { transform: translate(-2px, 1px) skew(-0.5deg, 0.5deg); }
-      50% { transform: translate(2px, -1px) skew(0.5deg, -0.5deg); }
-      75% { transform: translate(-1px, 2px) skew(-0.5deg, 0.5deg); }
     }
 
     .container {
@@ -60,43 +48,7 @@
       text-shadow:
         2px 0 rgba(255, 0, 0, 0.6),
         -2px 0 rgba(0, 0, 255, 0.6);
-      animation: vhsGlitchSlow 6s infinite ease-in-out;
       color: white;
-    }
-
-    @keyframes vhsGlitchSlow {
-      0%, 100% { transform: translateX(0); opacity: 1; }
-      25% { transform: translateX(-1.5px); opacity: 0.9; }
-      50% { transform: translateX(1.5px); opacity: 1; }
-      75% { transform: translateX(-1px); opacity: 0.9; }
-    }
-
-    .social-icons {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.3s, transform 0.3s;
-    }
-
-    .social-link img {
-      width: 20px;
-      height: 20px;
-      filter: invert(1);
-    }
-
-    .social-link:hover {
-      color: #ff00ff;
-      transform: scale(1.05);
     }
 
     .music-terminal {
@@ -105,7 +57,7 @@
       padding: 15px;
       text-align: center;
       width: 330px;
-      margin: 30px auto 0;
+      margin: 20px auto 0;
     }
 
     .track-info {
@@ -143,15 +95,16 @@
       transition: width 0.1s linear;
     }
 
-    .controls {
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      cursor: default;
+    .controls img {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      filter: invert(1);
+      transition: transform 0.2s;
     }
 
-    #play-btn {
-      cursor: pointer;
-      color: #ff00ff;
+    .controls img:hover {
+      transform: scale(1.1);
     }
 
     .vhs-overlay {
@@ -175,16 +128,6 @@
       z-index: 999;
     }
 
-    @keyframes flickerSlow {
-      0%, 100% { opacity: 0.04; }
-      50% { opacity: 0.1; }
-    }
-
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
-
     .vhs-noise {
       position: fixed;
       top: 0;
@@ -197,25 +140,22 @@
       opacity: 0.07;
       z-index: 998;
     }
+
+    @keyframes flickerSlow {
+      0%, 100% { opacity: 0.04; }
+      50% { opacity: 0.1; }
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div id="typing"></div>
 
-    <div class="social-icons">
-      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord"> chaostyc
-      </a>
-      <a class="social-link" href="https://x.com/knup06D" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png" alt="Twitter"> knup06D
-      </a>
-      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> stew5kk
-      </a>
-    </div>
-
-    <!-- Player retrô -->
     <div class="music-terminal">
       <div class="track-info">ᴺᵒʷ ᵖˡᵃʸᶦⁿᵍ; [ Trxy! - Realize ]</div>
       <div class="note">♬</div>
@@ -226,11 +166,14 @@
         </div>
         <span id="duration">-0:00</span>
       </div>
-      <div class="controls">⇄ ◃◃ <span id="play-btn">ⅠⅠ</span> ▹▹ ↻</div>
+      <div class="controls">
+        <img id="play-button" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play" title="Play" />
+        <img id="pause-button" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Pause" title="Pause" style="display:none;" />
+      </div>
     </div>
 
     <audio id="music-player" loop>
-      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
+      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg" />
     </audio>
   </div>
 
@@ -238,44 +181,62 @@
   <div class="vhs-noise"></div>
 
   <script>
+    // Animação loop do título
     const text = "chaostyc";
     const el = document.getElementById("typing");
     let i = 0;
-    function type() {
-      if (i < text.length) {
-        el.textContent += text[i++];
-        setTimeout(type, 180);
+    let typing = true;
+
+    function typeLoop() {
+      if (typing) {
+        if (i <= text.length) {
+          el.textContent = text.substring(0, i++);
+          setTimeout(typeLoop, 180);
+        } else {
+          typing = false;
+          setTimeout(typeLoop, 1000);
+        }
       } else {
-        setInterval(() => {
-          el.style.borderRightColor = el.style.borderRightColor === 'transparent' ? 'white' : 'transparent';
-        }, 500);
+        if (i >= 0) {
+          el.textContent = text.substring(0, i--);
+          setTimeout(typeLoop, 100);
+        } else {
+          typing = true;
+          setTimeout(typeLoop, 400);
+        }
       }
     }
-    type();
 
+    setInterval(() => {
+      el.style.borderRightColor = el.style.borderRightColor === 'transparent' ? 'white' : 'transparent';
+    }, 500);
+    typeLoop();
+
+    // Player
     const musicEl = document.getElementById("music-player");
-    const playBtn = document.getElementById("play-btn");
+    const playBtn = document.getElementById("play-button");
+    const pauseBtn = document.getElementById("pause-button");
     const fill = document.getElementById("bar-fill");
     const current = document.getElementById("current-time");
     const duration = document.getElementById("duration");
-    let playing = false;
-
-    playBtn.addEventListener("click", () => {
-      if (playing) {
-        musicEl.pause();
-        playBtn.textContent = "▶️";
-      } else {
-        musicEl.play();
-        playBtn.textContent = "ⅠⅠ";
-      }
-      playing = !playing;
-    });
 
     function formatTime(t) {
       const m = Math.floor(t / 60);
       const s = Math.floor(t % 60);
       return `${m}:${s < 10 ? '0' + s : s}`;
     }
+
+    playBtn.addEventListener("click", () => {
+      musicEl.play();
+      playBtn.style.display = "none";
+      pauseBtn.style.display = "inline";
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      musicEl.pause();
+      pauseBtn.style.display = "none";
+      playBtn.style.display = "inline";
+    });
 
     musicEl.addEventListener("timeupdate", () => {
       const prog = musicEl.currentTime / musicEl.duration;
