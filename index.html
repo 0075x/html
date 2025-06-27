@@ -33,13 +33,6 @@
     @keyframes screenShake {
       0%, 100% { transform: translate(0, 0) skew(0deg, 0deg); }
       25% { transform: translate(-2px, 1px) skew(-0.5deg, 0.5deg); }
-      filter: contrast(1.1) brightness(0.9) saturate(0.7);
-      text-shadow: 0 0 1px #fff;
-    }
-
-    @keyframes screenShake {
-      0%, 100% { transform: translate(0, 0) skew(0deg, 0deg); }
-      25% { transform: translate(-2px, 1px) skew(-0.5deg, 0.5deg); }
       50% { transform: translate(2px, -1px) skew(0.5deg, -0.5deg); }
       75% { transform: translate(-1px, 2px) skew(-0.5deg, 0.5deg); }
     }
@@ -107,48 +100,34 @@
 
     .track-info {
       font-size: 0.8rem;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .note {
-      font-size: 1.4rem;
+      font-size: 1rem;
       margin-bottom: 10px;
-    }
-
-    .progress-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 5px;
-      font-size: 0.75rem;
-      margin-bottom: 10px;
-    }
-
-    .bar {
-      background: #444;
-      flex: 1;
-      height: 6px;
-      position: relative;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .fill {
-      background: #ff00ff;
-      height: 100%;
-      width: 0%;
-      transition: width 0.1s linear;
     }
 
     .controls {
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      cursor: default;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
-    #play-btn {
+    .controls span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: repeating-linear-gradient(
+        0deg,
+        white,
+        white 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      mask-image: url('data:image/svg+xml;utf8,<svg fill="white" viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M73 39C45.5 22.5 0 40.1 0 74.8V437.2C0 471.9 45.5 489.5 73 473L297.3 338.8C324.8 322.3 324.8 189.7 297.3 173.2L73 39zM296 74.8V437.2C296 471.9 341.5 489.5 369 473L593.3 338.8C620.8 322.3 620.8 189.7 593.3 173.2L369 39C341.5 22.5 296 40.1 296 74.8z"/></svg>');
+      mask-size: cover;
       cursor: pointer;
-      color: #ff00ff;
     }
 
     .vhs-overlay {
@@ -199,16 +178,13 @@
 
     <!-- Player retrô -->
     <div class="music-terminal">
-      <div class="track-info">ᴾᵒʷ ᴿʳᴀᵒᵏ⁽; [ Trxy! - Realize ]</div>
-      <div class="note">♬</div>
-      <div class="progress-bar">
-        <span id="current-time">0:00</span>
-        <div class="bar">
-          <div class="fill" id="bar-fill"></div>
-        </div>
-        <span id="duration">-0:00</span>
+      <div class="track-info">Now Playing:</div>
+      <div class="note">trxy! - Realize</div>
+      <div class="controls">
+        <span title="Prev"></span>
+        <span id="play-btn" title="Play/Pause"></span>
+        <span title="Next"></span>
       </div>
-      <div class="controls">⇄ ◣◣ <span id="play-btn">ⅠⅠ</span> ▹▹ ↻</div>
     </div>
 
     <audio id="music-player" loop>
@@ -236,33 +212,15 @@
 
     const musicEl = document.getElementById("music-player");
     const playBtn = document.getElementById("play-btn");
-    const fill = document.getElementById("bar-fill");
-    const current = document.getElementById("current-time");
-    const duration = document.getElementById("duration");
     let playing = false;
 
     playBtn.addEventListener("click", () => {
       if (playing) {
         musicEl.pause();
-        playBtn.textContent = "▶️";
       } else {
         musicEl.play();
-        playBtn.textContent = "ⅠⅠ";
       }
       playing = !playing;
-    });
-
-    function formatTime(t) {
-      const m = Math.floor(t / 60);
-      const s = Math.floor(t % 60);
-      return `${m}:${s < 10 ? '0' + s : s}`;
-    }
-
-    musicEl.addEventListener("timeupdate", () => {
-      const prog = musicEl.currentTime / musicEl.duration;
-      fill.style.width = `${prog * 100}%`;
-      current.textContent = formatTime(musicEl.currentTime);
-      duration.textContent = "-" + formatTime(musicEl.duration - musicEl.currentTime);
     });
   </script>
 </body>
