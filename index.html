@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
 
-  <!-- Favicon base64 (C retrô) -->
+  <!-- Favicon simples em SVG -->
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
 
   <!-- Fonte Pixel Operator -->
@@ -18,7 +18,6 @@
     }
   </style>
 
-  <!-- Estilos principais -->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -31,7 +30,6 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      position: relative;
       padding: 20px;
       overflow: hidden;
       animation: screenShake 6s infinite ease-in-out;
@@ -49,11 +47,10 @@
       text-align: center;
       z-index: 1;
       max-width: 400px;
-      width: 100%;
     }
 
     #typing {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       white-space: nowrap;
       border-right: 3px solid white;
       width: 18ch;
@@ -63,10 +60,7 @@
         2px 0 rgba(255, 0, 0, 0.6),
         -2px 0 rgba(0, 0, 255, 0.6);
       animation: vhsGlitchSlow 6s infinite ease-in-out;
-      position: relative;
       color: white;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     @keyframes vhsGlitchSlow {
@@ -81,9 +75,6 @@
       flex-direction: column;
       gap: 20px;
       margin-bottom: 40px;
-      max-width: 250px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .social-link {
@@ -105,6 +96,38 @@
     .social-link:hover {
       color: #ff00ff;
       transform: scale(1.05);
+    }
+
+    .music-layer {
+      margin-top: 30px;
+      padding: 10px;
+      border: 2px solid white;
+      background-color: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 8px #ff00ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 6px;
+    }
+
+    #music-btn {
+      font-family: 'Pixel Operator', monospace;
+      font-size: 14px;
+      background-color: black;
+      color: white;
+      border: 2px solid white;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #ff00ff;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+
+    #music-btn:hover {
+      transform: scale(1.1);
+      background-color: #111;
     }
 
     .vhs-overlay {
@@ -130,62 +153,36 @@
       0%, 100% { opacity: 0.04; }
       50% { opacity: 0.12; }
     }
-
-    .music-player {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    #music-btn {
-      font-family: 'Pixel Operator', monospace;
-      font-size: 18px;
-      background-color: black;
-      color: white;
-      border: 2px solid white;
-      padding: 8px 12px;
-      cursor: pointer;
-      box-shadow: 2px 2px 0 #ff00ff;
-      transition: transform 0.1s;
-    }
-
-    #music-btn:hover {
-      transform: scale(1.1);
-    }
   </style>
 </head>
-
 <body>
 
   <div class="container">
     <div id="typing"></div>
 
     <div class="social-icons">
-      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord Icon"> chaostyc
+      <a class="social-link" href="https://discord.com/users/chaostyc" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670157.png" alt="Discord"> chaostyc
       </a>
-      <a class="social-link" href="https://x.com/knup06D" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png" alt="X Icon"> knup06D
+      <a class="social-link" href="https://x.com/knup06D" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968776.png" alt="Twitter"> knup06D
       </a>
-      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon"> stew5kk
+      <a class="social-link" href="https://instagram.com/stew5kk" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> stew5kk
       </a>
     </div>
+
+    <!-- Player com botão pixelado -->
+    <div class="music-layer">
+      <button onclick="toggleMusic()" id="music-btn">▶️ Música</button>
+    </div>
+    <audio id="bg-music" loop>
+      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg" />
+    </audio>
   </div>
 
-  <!-- Player retrô com sua música -->
-  <div class="music-player">
-    <button onclick="toggleMusic()" id="music-btn">▶️</button>
-  </div>
-  <audio id="bg-music" loop>
-    <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- Efeito VHS -->
   <div class="vhs-overlay"></div>
 
-  <!-- Script: typing + player -->
   <script>
     const text = "chaostyc";
     const el = document.getElementById("typing");
@@ -202,7 +199,6 @@
     }
     type();
 
-    // Player retrô
     const music = document.getElementById("bg-music");
     const button = document.getElementById("music-btn");
     let isPlaying = false;
@@ -210,10 +206,10 @@
     function toggleMusic() {
       if (isPlaying) {
         music.pause();
-        button.textContent = "▶️";
+        button.textContent = "▶️ Música";
       } else {
         music.play();
-        button.textContent = "⏸️";
+        button.textContent = "⏸️ Pausado";
       }
       isPlaying = !isPlaying;
     }
