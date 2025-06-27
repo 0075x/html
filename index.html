@@ -192,6 +192,31 @@
       0% { opacity:0.03; }
       100% { opacity:0.07; }
     }
+
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#music-btn {
+  font-family: 'Pixel Operator', monospace;
+  font-size: 18px;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #ff00ff;
+  transition: transform 0.1s;
+}
+
+#music-btn:hover {
+  transform: scale(1.1);
+}
+
+    
   </style>
 </head>
 <body>
@@ -219,7 +244,12 @@
       </a>
     </div>
 
-    <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/51RriaGnB6VILb54rXHKj8?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <div class="music-player">
+  <button onclick="toggleMusic()" id="music-btn">▶️</button>
+</div>
+<audio id="bg-music" loop>
+  <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg" />
+</audio>
   </div>
 
   <div class="vhs-overlay"></div>
@@ -239,6 +269,22 @@
       }
     }
     type();
+
+
+     const music = document.getElementById("bg-music");
+  const button = document.getElementById("music-btn");
+  let isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      music.pause();
+      button.textContent = "▶️";
+    } else {
+      music.play();
+      button.textContent = "⏸️";
+    }
+    isPlaying = !isPlaying;
+  }
   </script>
 
 </body>
