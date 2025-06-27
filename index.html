@@ -130,9 +130,10 @@
       cursor: pointer;
     }
 
-    .prev { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9f/Media-playback-start.svg'); }
-    .play { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3c/Media-playback-pause.svg'); }
-    .next { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9f/Media-playback-start.svg'); transform: rotate(180deg); }
+    .prev { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/Media-skip-backward.svg'); }
+    .play { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9f/Media-playback-start.svg'); }
+    .pause { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3c/Media-playback-pause.svg'); }
+    .next { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0f/Media-skip-forward.svg'); }
 
     .vhs-overlay {
       position: fixed;
@@ -221,12 +222,12 @@
     playBtn.addEventListener("click", () => {
       if (playing) {
         musicEl.pause();
-        playBtn.style.maskImage = 'url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Media-playback-start.svg)';
-        playBtn.style.transform = 'none';
+        playBtn.classList.remove("pause");
+        playBtn.classList.add("play");
       } else {
         musicEl.play();
-        playBtn.style.maskImage = 'url(https://upload.wikimedia.org/wikipedia/commons/3/3c/Media-playback-pause.svg)';
-        playBtn.style.transform = 'none';
+        playBtn.classList.remove("play");
+        playBtn.classList.add("pause");
       }
       playing = !playing;
     });
