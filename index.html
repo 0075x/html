@@ -4,11 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
-
-  <!-- Favicon simples em SVG -->
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
-
-  <!-- Fonte Pixel Operator -->
   <style>
     @font-face {
       font-family: 'Pixel Operator';
@@ -16,11 +12,8 @@
       font-weight: normal;
       font-style: normal;
     }
-  </style>
 
-  <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       background: black;
       color: white;
@@ -33,6 +26,13 @@
       padding: 20px;
       overflow: hidden;
       animation: screenShake 6s infinite ease-in-out;
+      filter: contrast(1.1) brightness(0.9) saturate(0.7);
+      text-shadow: 0 0 1px #fff;
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translate(0, 0) skew(0deg, 0deg); }
+      25% { transform: translate(-2px, 1px) skew(-0.5deg, 0.5deg); }
       filter: contrast(1.1) brightness(0.9) saturate(0.7);
       text-shadow: 0 0 1px #fff;
     }
