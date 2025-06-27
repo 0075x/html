@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
-
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
 
   <!-- Fonte Pixel Operator -->
@@ -20,144 +19,27 @@
       box-sizing: border-box;
     }
 
-    body {
-      background: black;
-      color: white;
-      font-family: 'Pixel Operator', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+    html, body {
+      height: 100%;
+      background-color: black;
       overflow: hidden;
-      position: relative;
+      font-family: 'Pixel Operator', monospace;
+      color: white;
       cursor: url('https://i.imgur.com/97ca6an.png'), auto;
     }
 
-    /* Imagem de fundo lateral */
     body::before {
-      content: '';
+      content: "";
       position: fixed;
       top: 0;
       right: 0;
-      width: 45%;
-      height: 100%;
+      width: 40vw;
+      height: 100vh;
       background: url('https://github.com/user-attachments/assets/d8dfdb39-8b86-42b0-8a48-d56160046179') no-repeat right center;
       background-size: cover;
       opacity: 0.2;
-      z-index: 0;
       pointer-events: none;
-    }
-
-    .container {
-      text-align: center;
-      z-index: 1;
-      max-width: 400px;
-    }
-
-    #typing {
-      font-size: 2.4rem;
-      white-space: nowrap;
-      border-right: 3px solid white;
-      overflow: hidden;
-      text-shadow:
-        2px 0 rgba(255, 0, 0, 0.6),
-        -2px 0 rgba(0, 0, 255, 0.6);
-      animation: typing 4s steps(8) 1s infinite alternate, blink 0.7s infinite;
-    }
-
-    @keyframes typing {
-      0% { width: 0ch; }
-      100% { width: 8ch; }
-    }
-
-    @keyframes blink {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: white; }
-    }
-
-    .social-icons {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin: 40px 0;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.3s, transform 0.3s;
-    }
-
-    .social-link img {
-      width: 20px;
-      height: 20px;
-      filter: invert(1);
-    }
-
-    .social-link:hover {
-      color: #ff00ff;
-      transform: scale(1.05);
-    }
-
-    .music-terminal {
-      font-family: 'Pixel Operator', monospace;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      width: 330px;
-      margin: 30px auto 0;
-    }
-
-    .track-info {
-      font-size: 0.8rem;
-      margin-bottom: 8px;
-    }
-
-    .note {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-
-    .progress-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 5px;
-      font-size: 0.75rem;
-      margin-bottom: 10px;
-    }
-
-    .bar {
-      background: #444;
-      flex: 1;
-      height: 6px;
-      position: relative;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .fill {
-      background: #ff00ff;
-      height: 100%;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-
-    .controls {
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      cursor: default;
-    }
-
-    #play-btn {
-      cursor: pointer;
-      color: #ff00ff;
+      z-index: 0;
     }
 
     .vhs-overlay {
@@ -181,16 +63,6 @@
       z-index: 999;
     }
 
-    @keyframes flickerSlow {
-      0%, 100% { opacity: 0.04; }
-      50% { opacity: 0.1; }
-    }
-
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
-
     .vhs-noise {
       position: fixed;
       top: 0;
@@ -203,8 +75,96 @@
       opacity: 0.07;
       z-index: 998;
     }
+
+    @keyframes flickerSlow {
+      0%, 100% { opacity: 0.04; }
+      50% { opacity: 0.1; }
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #typing {
+      font-size: 2.8rem;
+      white-space: nowrap;
+      border-right: 2px solid white;
+      overflow: hidden;
+      width: 0ch;
+      animation: typing 3s steps(8) 1s 1 normal both, erase 3s steps(8) 7s 1 reverse both;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0ch; }
+      to { width: 8ch; }
+    }
+
+    @keyframes erase {
+      from { width: 8ch; }
+      to { width: 0ch; }
+    }
+
+    .social-icons {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-link img {
+      width: 20px;
+      height: 20px;
+      filter: invert(1);
+    }
+
+    .social-link:hover {
+      color: #ff00ff;
+      transform: scale(1.05);
+    }
   </style>
+
+  <!-- Proteção contra cópia -->
+  <script>
+    // Desativa botão direito
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Desativa teclas comuns de inspeção
+    document.addEventListener('keydown', function (e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
 </head>
+
 <body>
   <div class="container">
     <div id="typing">chaostyc</div>
@@ -220,59 +180,9 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> stew5kk
       </a>
     </div>
-
-    <div class="music-terminal">
-      <div class="track-info">ᴺᵒʷ ᵖˡᵃʸᶦⁿᵍ; [ Trxy! - Realize ]</div>
-      <div class="note">♬</div>
-      <div class="progress-bar">
-        <span id="current-time">0:00</span>
-        <div class="bar">
-          <div class="fill" id="bar-fill"></div>
-        </div>
-        <span id="duration">-0:00</span>
-      </div>
-      <div class="controls">⇄ ◃◃ <span id="play-btn">ⅠⅠ</span> ▹▹ ↻</div>
-    </div>
-
-    <audio id="music-player" loop>
-      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
-    </audio>
   </div>
 
   <div class="vhs-overlay"></div>
   <div class="vhs-noise"></div>
-
-  <script>
-    const musicEl = document.getElementById("music-player");
-    const playBtn = document.getElementById("play-btn");
-    const fill = document.getElementById("bar-fill");
-    const current = document.getElementById("current-time");
-    const duration = document.getElementById("duration");
-    let playing = false;
-
-    playBtn.addEventListener("click", () => {
-      if (playing) {
-        musicEl.pause();
-        playBtn.textContent = "▶️";
-      } else {
-        musicEl.play();
-        playBtn.textContent = "ⅠⅠ";
-      }
-      playing = !playing;
-    });
-
-    function formatTime(t) {
-      const m = Math.floor(t / 60);
-      const s = Math.floor(t % 60);
-      return `${m}:${s < 10 ? '0' + s : s}`;
-    }
-
-    musicEl.addEventListener("timeupdate", () => {
-      const prog = musicEl.currentTime / musicEl.duration;
-      fill.style.width = `${prog * 100}%`;
-      current.textContent = formatTime(musicEl.currentTime);
-      duration.textContent = "-" + formatTime(musicEl.duration - musicEl.currentTime);
-    });
-  </script>
 </body>
 </html>
