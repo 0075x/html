@@ -26,7 +26,6 @@
       position: relative;
     }
 
-    /* IMAGEM DE FUNDO FIXA À DIREITA */
     .background-image {
       position: fixed;
       top: 0;
@@ -97,10 +96,13 @@
       white-space: nowrap;
       border-right: 3px solid white;
       overflow: hidden;
+      width: 0ch;
+      animation:
+        typing 2s steps(8, end) infinite alternate,
+        blink 0.8s step-end infinite;
       text-shadow:
         2px 0 rgba(255, 0, 0, 0.6),
         -2px 0 rgba(0, 0, 255, 0.6);
-      animation: typing 4s steps(8) infinite alternate, blink 1s step-end infinite;
     }
 
     @keyframes typing {
@@ -198,7 +200,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 30px;
+      height: 25px;
       background: url('https://github.com/user-attachments/assets/4035e49c-5ac9-4883-918a-e51828b52f01') no-repeat center center;
       background-size: cover;
       z-index: 999;
@@ -236,13 +238,13 @@
       </div>
       <div class="controls">⇄ ◃◃ <span id="play-btn">▶️</span> ▹▹ ↻</div>
     </div>
-
-    <audio id="music-player" loop>
-      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
-    </audio>
   </div>
 
   <div class="taskbar"></div>
+
+  <audio id="music-player" loop>
+    <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const musicEl = document.getElementById("music-player");
@@ -277,3 +279,4 @@
     });
   </script>
 </body>
+</html>
