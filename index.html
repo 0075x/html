@@ -115,25 +115,21 @@
     }
 
     .control-btn {
-      display: inline-block;
       width: 30px;
       height: 30px;
-      background: repeating-linear-gradient(
-        0deg,
-        white,
-        white 1px,
-        transparent 2px,
-        transparent 3px
-      );
-      mask-size: cover;
-      -webkit-mask-size: cover;
       cursor: pointer;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
-    .prev { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/Media-skip-backward.svg'); }
-    .play { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9f/Media-playback-start.svg'); }
-    .pause { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3c/Media-playback-pause.svg'); }
-    .next { mask-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0f/Media-skip-forward.svg'); }
+    .play-btn {
+      background-image: url('https://user-images.githubusercontent.com/14963867/232292943-df6a8323-72a7-4fa2-870d-40d469d78a41.png');
+    }
+
+    .pause-btn {
+      background-image: url('https://user-images.githubusercontent.com/14963867/232292963-1139f134-b6d0-42b5-b4c7-b1f02c586760.png');
+    }
 
     .vhs-overlay {
       position: fixed;
@@ -186,9 +182,7 @@
       <div class="track-info">Now Playing:</div>
       <div class="note">trxy! - Realize</div>
       <div class="controls">
-        <span class="control-btn prev" title="Prev"></span>
-        <span class="control-btn play" id="play-btn" title="Play/Pause"></span>
-        <span class="control-btn next" title="Next"></span>
+        <span class="control-btn play-btn" id="play-btn" title="Play/Pause"></span>
       </div>
     </div>
 
@@ -222,12 +216,12 @@
     playBtn.addEventListener("click", () => {
       if (playing) {
         musicEl.pause();
-        playBtn.classList.remove("pause");
-        playBtn.classList.add("play");
+        playBtn.classList.remove("pause-btn");
+        playBtn.classList.add("play-btn");
       } else {
         musicEl.play();
-        playBtn.classList.remove("play");
-        playBtn.classList.add("pause");
+        playBtn.classList.remove("play-btn");
+        playBtn.classList.add("pause-btn");
       }
       playing = !playing;
     });
