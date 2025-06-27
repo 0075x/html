@@ -18,7 +18,7 @@
     }
 
     body {
-      background: black url('https://github.com/user-attachments/assets/d3539f24-1493-4688-91b7-48d501e0a317') center center / cover no-repeat fixed;
+      background: black;
       color: white;
       font-family: 'Pixel Operator', monospace;
       display: flex;
@@ -29,6 +29,17 @@
       padding: 20px;
       overflow: hidden;
       position: relative;
+    }
+
+    /* IMAGEM LATERAL */
+    .right-image {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      opacity: 0.2;
+      z-index: 0;
+      object-fit: cover;
     }
 
     .container {
@@ -186,6 +197,9 @@
   </style>
 </head>
 <body>
+  <!-- Imagem lateral à direita -->
+  <img src="https://github.com/user-attachments/assets/d8dfdb39-8b86-42b0-8a48-d56160046179" alt="bg-side" class="right-image">
+
   <div class="container">
     <div id="typing">chaostyc</div>
 
@@ -256,3 +270,4 @@
     });
   </script>
 </body>
+</html>
