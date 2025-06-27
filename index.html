@@ -45,14 +45,8 @@
       width: 100vw; height: 100vh;
       pointer-events: none;
       background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.03),
-          rgba(255, 255, 255, 0.03) 2px,
-          transparent 3px,
-          transparent 4px
-        ),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 255, 0.03));
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 2px, transparent 3px, transparent 4px),
+        linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,255,0.03));
       mix-blend-mode: screen;
       animation: flickerSlow 12s infinite alternate, scanlines 0.2s linear infinite;
       z-index: 2;
@@ -134,7 +128,7 @@
     .social-link img {
       width: 30px;
       height: 30px;
-      filter: (1);
+      filter: invert(1);
     }
 
     .social-link:hover {
@@ -208,7 +202,7 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false">
   <div class="background-image"></div>
   <div class="vhs-overlay"></div>
   <div class="vhs-noise"></div>
@@ -247,6 +241,18 @@
   </audio>
 
   <script>
+    // Bloqueios de atalhos
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && ["U", "S"].includes(e.key.toUpperCase()))
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // Player
     const musicEl = document.getElementById("music-player");
     const playBtn = document.getElementById("play-btn");
     const fill = document.getElementById("bar-fill");
