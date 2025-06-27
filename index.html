@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>chaostyc</title>
 
-  <!-- Favicon simples -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRleHQgeD0iNSIgeT0iMjUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwiPkM8L3RleHQ+PC9zdmc+" type="image/svg+xml" />
 
   <!-- Fonte Pixel Operator -->
@@ -19,11 +19,11 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      cursor: url('https://i.imgur.com/vClCUal.png'), auto;
     }
 
     body {
-      background: black;
+      background: black url('https://imgur.com/97ca6an.png') no-repeat right center;
+      background-size: cover;
       color: white;
       font-family: 'Pixel Operator', monospace;
       display: flex;
@@ -34,62 +34,6 @@
       padding: 20px;
       overflow: hidden;
       position: relative;
-    }
-
-    .background-image {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 50%;
-      background: url('https://imgur.com/97ca6an.png') no-repeat right center;
-      background-size: cover;
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .vhs-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.03),
-          rgba(255, 255, 255, 0.03) 2px,
-          transparent 3px,
-          transparent 4px
-        ),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 255, 0.03));
-      mix-blend-mode: screen;
-      animation: flickerSlow 12s infinite alternate, scanlines 0.2s linear infinite;
-      z-index: 999;
-    }
-
-    .vhs-noise {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: url('https://media.githubusercontent.com/media/epistemik-co/lab-assets/main/vhs-noise.gif') center/cover no-repeat;
-      mix-blend-mode: lighten;
-      opacity: 0.07;
-      z-index: 998;
-    }
-
-    @keyframes flickerSlow {
-      0%, 100% { opacity: 0.04; }
-      50% { opacity: 0.1; }
-    }
-
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
     }
 
     .container {
@@ -105,10 +49,13 @@
       border-right: 3px solid white;
       overflow: hidden;
       width: 18ch;
+      margin-bottom: 30px;
       text-shadow:
         2px 0 rgba(255, 0, 0, 0.6),
         -2px 0 rgba(0, 0, 255, 0.6);
       animation: typing 2s steps(9) alternate infinite, blink 0.7s step-end infinite;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @keyframes typing {
@@ -202,11 +149,52 @@
       cursor: pointer;
       color: #ff00ff;
     }
+
+    .vhs-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.03) 2px,
+          transparent 3px,
+          transparent 4px
+        ),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 255, 0.03));
+      mix-blend-mode: screen;
+      animation: flickerSlow 12s infinite alternate, scanlines 0.2s linear infinite;
+      z-index: 999;
+    }
+
+    .vhs-noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: url('https://media.githubusercontent.com/media/epistemik-co/lab-assets/main/vhs-noise.gif') center/cover no-repeat;
+      mix-blend-mode: lighten;
+      opacity: 0.07;
+      z-index: 998;
+    }
+
+    @keyframes flickerSlow {
+      0%, 100% { opacity: 0.04; }
+      50% { opacity: 0.1; }
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
-  <div class="background-image"></div>
-
   <div class="container">
     <div id="typing">chaostyc</div>
 
@@ -277,3 +265,4 @@
     });
   </script>
 </body>
+</html>
