@@ -192,30 +192,30 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #1b1b1b;
+      height: 38px;
+      background: url('https://github.com/user-attachments/assets/4035e49c-5ac9-4883-918a-e51828b52f01') no-repeat center;
+      background-size: cover;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 10px;
-      border-top: 2px solid #333;
-      font-family: 'Pixel Operator', monospace;
-      font-size: 0.9rem;
+      padding: 0 10px;
       z-index: 4;
+      font-family: 'Pixel Operator', monospace;
     }
 
-    .start-button {
-      background: #2e2e2e;
+    .start-button, .clock {
+      background: transparent;
       color: white;
-      border: 1px solid #444;
-      padding: 3px 8px;
+      font-size: 0.85rem;
+      border: none;
       cursor: pointer;
     }
 
-    .clock {
-      color: white;
-      padding: 3px 8px;
+    .start-button:hover, .clock:hover {
+      filter: brightness(1.2);
     }
   </style>
+
   <script>
     document.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("keydown", e => {
@@ -262,7 +262,7 @@
   </div>
 
   <div class="taskbar">
-    <div class="start-button" onclick="alert('Start Menu Aberto')">Start</div>
+    <button class="start-button">Start</button>
     <div class="clock" id="clock">--:--</div>
   </div>
 
@@ -304,6 +304,7 @@
       const minutes = now.getMinutes().toString().padStart(2, '0');
       document.getElementById("clock").textContent = `${hours}:${minutes}`;
     }
+
     setInterval(updateClock, 1000);
     updateClock();
   </script>
