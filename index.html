@@ -98,36 +98,63 @@
       transform: scale(1.05);
     }
 
-    .music-layer {
-      margin-top: 30px;
-      padding: 10px;
-      border: 2px solid white;
-      background-color: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 8px #ff00ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 6px;
-    }
-
-    #music-btn {
+    .music-terminal {
       font-family: 'Pixel Operator', monospace;
-      font-size: 14px;
-      background-color: black;
       color: white;
+      background: rgba(0, 0, 0, 0.3);
       border: 2px solid white;
-      padding: 8px 12px;
-      cursor: pointer;
-      box-shadow: 2px 2px 0 #ff00ff;
-      transition: transform 0.1s, background-color 0.2s;
+      padding: 15px;
+      text-align: center;
+      width: 330px;
+      margin: 30px auto 0;
+      box-shadow: 0 0 10px #ff00ff;
+      border-radius: 8px;
     }
 
-    #music-btn:hover {
-      transform: scale(1.1);
-      background-color: #111;
+    .track-info {
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+
+    .note {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      background: #444;
+      flex: 1;
+      height: 6px;
+      position: relative;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .fill {
+      background: #ff00ff;
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .controls {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      cursor: default;
+    }
+
+    #play-btn {
+      cursor: pointer;
+      color: #ff00ff;
     }
 
     .vhs-overlay {
@@ -156,7 +183,6 @@
   </style>
 </head>
 <body>
-
   <div class="container">
     <div id="typing"></div>
 
@@ -172,12 +198,22 @@
       </a>
     </div>
 
-    <!-- Player com botão pixelado -->
-    <div class="music-layer">
-      <button onclick="toggleMusic()" id="music-btn">▶️ Música</button>
+    <!-- Player retrô -->
+    <div class="music-terminal">
+      <div class="track-info">ᴺᵒʷ ᵖˡᵃʸᶦⁿᵍ; [ Trxy! - Realize ]</div>
+      <div class="note">♬</div>
+      <div class="progress-bar">
+        <span id="current-time">0:00</span>
+        <div class="bar">
+          <div class="fill" id="bar-fill"></div>
+        </div>
+        <span id="duration">-0:00</span>
+      </div>
+      <div class="controls">⇄ ◃◃ <span id="play-btn">ⅠⅠ</span> ▹▹ ↻</div>
     </div>
-    <audio id="bg-music" loop>
-      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg" />
+
+    <audio id="music-player" loop>
+      <source src="https://raw.githubusercontent.com/0075x/-chaosmusic/f73c219112de74416627363fb28ee31a6c9a628e/Trxy!%20-%20Realize%20(Official%20Audio).mp3" type="audio/mpeg">
     </audio>
   </div>
 
@@ -199,21 +235,36 @@
     }
     type();
 
-    const music = document.getElementById("bg-music");
-    const button = document.getElementById("music-btn");
-    let isPlaying = false;
+    const musicEl = document.getElementById("music-player");
+    const playBtn = document.getElementById("play-btn");
+    const fill = document.getElementById("bar-fill");
+    const current = document.getElementById("current-time");
+    const duration = document.getElementById("duration");
+    let playing = false;
 
-    function toggleMusic() {
-      if (isPlaying) {
-        music.pause();
-        button.textContent = "▶️ Música";
+    playBtn.addEventListener("click", () => {
+      if (playing) {
+        musicEl.pause();
+        playBtn.textContent = "▶️";
       } else {
-        music.play();
-        button.textContent = "⏸️ Pausado";
+        musicEl.play();
+        playBtn.textContent = "ⅠⅠ";
       }
-      isPlaying = !isPlaying;
-    }
-  </script>
+      playing = !playing;
+    });
 
+    function formatTime(t) {
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60);
+      return `${m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    musicEl.addEventListener("timeupdate", () => {
+      const prog = musicEl.currentTime / musicEl.duration;
+      fill.style.width = `${prog * 100}%`;
+      current.textContent = formatTime(musicEl.currentTime);
+      duration.textContent = "-" + formatTime(musicEl.duration - musicEl.currentTime);
+    });
+  </script>
 </body>
 </html>
