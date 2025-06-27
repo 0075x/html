@@ -1,81 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Minhas Redes Sociais</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Font Awesome para ícones -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      background-color: #121212;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 30px;
-      font-size: 2.5rem;
-    }
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 100%;
-      max-width: 320px;
-    }
-    .links a {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background-color: #1e90ff;
-      color: white;
-      text-decoration: none;
-      padding: 15px 20px;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .links a:hover {
-      background-color: #4682b4;
-      transform: scale(1.05);
-    }
-    .links i {
-      font-size: 1.8rem;
-    }
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .links a {
-        font-size: 1rem;
-        padding: 12px 15px;
-      }
-      .links i {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>chaostyc</title>
+
+<!-- Fonte Press Start 2P -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+<!-- Font Awesome para ícones -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    background: black;
+    color: #00ff00;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+  }
+  .container {
+    text-align: center;
+    max-width: 400px;
+  }
+  #typing {
+    font-size: 1.2rem;
+    white-space: nowrap;
+    border-right: 3px solid #00ff00;
+    width: 18ch;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  .social-links a {
+    color: #00ff00;
+    font-size: 2.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  .social-links a:hover {
+    color: #ff00ff;
+    transform: scale(1.2) rotate(10deg);
+  }
+  /* VHS effect overlay */
+  .vhs-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,255,0,0.05),
+      rgba(0,255,0,0.05) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+    mix-blend-mode: screen;
+    animation: flicker 0.15s infinite alternate;
+    z-index: 9999;
+  }
+  @keyframes flicker {
+    0% { opacity: 0.05; }
+    100% { opacity: 0.15; }
+  }
+  /* Spotify player styling */
+  iframe.spotify-embed {
+    border-radius: 12px;
+    width: 300px;
+    height: 80px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+  }
+</style>
 </head>
 <body>
-  <h1>Me siga nas redes</h1>
-  <div class="links">
-    <a href="https://discord.com/users/1368049418863120484" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-discord"></i> Discord
+
+<div class="container">
+  <div id="typing"></div>
+
+  <div class="social-links">
+    <a href="https://discord.com/users/SEU_ID_DISCORD" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+      <i class="fab fa-discord"></i>
     </a>
-    <a href="https://x.com/knup06" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-x-twitter"></i> X (Twitter)
+    <a href="https://x.com/SEU_USUARIO_X" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+      <i class="fab fa-x-twitter"></i>
     </a>
-    <a href="https://www.instagram.com/stew5kk/" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-instagram"></i> Instagram
+    <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
     </a>
   </div>
+
+  <!-- Player Spotify embed -->
+  <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/51RriaGnB6VILb54rXHKj8?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div class="vhs-overlay"></div>
+
+<script>
+  // Animação de digitação "chaostyc"
+  const typingText = "chaostyc";
+  const typingElement = document.getElementById("typing");
+  let index = 0;
+
+  function type() {
+    if (index < typingText.length) {
+      typingElement.textContent += typingText.charAt(index);
+      index++;
+      setTimeout(type, 200);
+    } else {
+      // Piscar cursor após digitação completa
+      setInterval(() => {
+        typingElement.style.borderRightColor = typingElement.style.borderRightColor === 'transparent' ? '#00ff00' : 'transparent';
+      }, 500);
+    }
+  }
+  type();
+</script>
+
 </body>
 </html>
