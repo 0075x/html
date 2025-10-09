@@ -132,7 +132,7 @@
       font-weight: bold;
     }
 
-    /* Player container */
+    /* Container do player + disco */
     .music-container {
       margin-top: 60px;
       display: flex;
@@ -143,7 +143,7 @@
       justify-content: center;
     }
 
-    /* Disco */
+    /* Disco de vinil com capa da música */
     .vinil-disc {
       width: 150px;
       height: 150px;
@@ -179,7 +179,7 @@
       }
     }
 
-    /* Custom player */
+    /* Player customizado */
     .music-player {
       text-align: center;
       padding: 20px;
@@ -197,27 +197,59 @@
       color: #fff;
     }
 
-    .custom-player {
+    .custom-controls {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
+      background-color: #222;
+      padding: 10px;
+      border: 2px solid #444;
+      border-radius: 0; /* bordas quadradas */
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
     }
 
-    .custom-button {
-      background-color: #1da1f2;
+    .custom-controls button {
+      background: none;
       border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
       color: white;
+      font-size: 24px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      padding: 5px;
     }
 
-    .custom-button:hover {
-      background-color: #0d8de0;
+    .custom-controls input[type="range"] {
+      appearance: none;
+      height: 5px;
+      background: #555;
+      border-radius: 0;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .custom-controls input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    .custom-controls input[type="range"]::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    #progress {
+      flex: 1;
+    }
+
+    #volume {
+      width: 80px;
     }
   </style>
 </head>
@@ -266,13 +298,67 @@
     </div>
   </div>
 
-  <!-- Novo player customizado -->
+  <!-- Player + disco de vinil -->
   <div class="music-container">
-    <div class="vinil-disc" id="vinil"></div>
+    <div class="vinil-disc"></div>
     <div class="music-player">
       <h2>🎵 Agora Tocando</h2>
-      <div class="custom-player">
-        <button class="custom-button" id="playBtn">▶️</button>
-        <audio id="audio">
-          <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
-        </
+      <div class="custom-controls">
+        <button id="btnPlay">▶️</button>
+        <input type="range" id="progress" value="0" step="0.1" />
+        <input type="range" id="volume" min="0" max="1" step="0.05" value="1" />
+      </div>
+      <audio id="audio">
+        <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const disc = document.querySelector('.vinil-disc');
+    const btnPlay = document.getElementById('btnPlay');
+    const progress = document.getElementById('progress');
+    const volume = document.getElementById('volume');
+
+    btnPlay.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        btnPlay.textContent = '⏸️';
+        disc.style.animationPlayState = 'running';
+      } else {
+        audio.pause();
+        btnPlay.textContent = '▶️';
+        disc.style.animationPlayState = 'paused';
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      progress.max = audio.duration;
+      progress.value = audio.currentTime;
+    });
+
+    progress.addEventListener('input', () => {
+      audio.currentTime = progress.value;
+    });
+
+    volume.addEventListener('input', () => {
+      audio.volume = volume.value;
+    });
+
+    audio.addEventListener('play', () => {
+      disc.style.animationPlayState = 'running';
+    });
+
+    audio.addEventListener('pause', () => {
+      disc.style.animationPlayState = 'paused';
+    });
+
+    audio.addEventListener('ended', () => {
+      disc.style.animationPlayState = 'paused';
+      btnPlay.textContent = '▶️';
+    });
+  </script>
+
+</body>
+</html>
