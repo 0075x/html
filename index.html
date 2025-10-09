@@ -132,7 +132,7 @@
       font-weight: bold;
     }
 
-    /* 🎵 Container do player + disco */
+    /* Player container */
     .music-container {
       margin-top: 60px;
       display: flex;
@@ -143,7 +143,7 @@
       justify-content: center;
     }
 
-    /* Disco de vinil com capa da música */
+    /* Disco */
     .vinil-disc {
       width: 150px;
       height: 150px;
@@ -179,7 +179,7 @@
       }
     }
 
-    /* Player de música */
+    /* Custom player */
     .music-player {
       text-align: center;
       padding: 20px;
@@ -197,8 +197,27 @@
       color: #fff;
     }
 
-    .music-player audio {
-      width: 100%;
+    .custom-player {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .custom-button {
+      background-color: #1da1f2;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .custom-button:hover {
+      background-color: #0d8de0;
     }
   </style>
 </head>
@@ -247,34 +266,13 @@
     </div>
   </div>
 
-  <!-- 🎵 Player + disco de vinil -->
+  <!-- Novo player customizado -->
   <div class="music-container">
-    <div class="vinil-disc"></div>
+    <div class="vinil-disc" id="vinil"></div>
     <div class="music-player">
       <h2>🎵 Agora Tocando</h2>
-      <audio id="audio" controls>
-        <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
-        
-      </audio>
-    </div>
-  </div>
-
-  <script>
-    const audio = document.getElementById('audio');
-    const disc = document.querySelector('.vinil-disc');
-
-    audio.addEventListener('play', () => {
-      disc.style.animationPlayState = 'running';
-    });
-
-    audio.addEventListener('pause', () => {
-      disc.style.animationPlayState = 'paused';
-    });
-
-    audio.addEventListener('ended', () => {
-      disc.style.animationPlayState = 'paused';
-    });
-  </script>
-
-</body>
-</html>
+      <div class="custom-player">
+        <button class="custom-button" id="playBtn">▶️</button>
+        <audio id="audio">
+          <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
+        </
