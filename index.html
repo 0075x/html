@@ -132,15 +132,58 @@
       font-weight: bold;
     }
 
-    /* 🎵 Estilo para player de música */
-    .music-player {
+    /* 🎵 Container do player + disco */
+    .music-container {
       margin-top: 60px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 700px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Disco de vinil */
+    .vinil-disc {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #222 60%, #000 95%);
+      box-shadow:
+        inset 0 0 20px #444,
+        0 0 10px rgba(255, 255, 255, 0.1);
+      position: relative;
+      animation: spin 0s linear infinite paused;
+      flex-shrink: 0;
+    }
+
+    .vinil-disc::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #666 50%, transparent 60%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px #888;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Player de música */
+    .music-player {
       text-align: center;
       padding: 20px;
       background-color: #1a1a1a;
       border-radius: 10px;
       width: 100%;
-      max-width: 600px;
+      max-width: 400px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
     }
 
@@ -201,14 +244,35 @@
     </div>
   </div>
 
-  <!-- 🎵 Player de música -->
-  <div class="music-player">
-    <h2>🎵 Agora Tocando</h2>
-    <audio controls>
-      <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg">
-      Seu navegador não suporta o player de áudio.
-    </audio>
+  <!-- 🎵 Player + disco de vinil -->
+  <div class="music-container">
+    <div class="vinil-disc"></div>
+    <div class="music-player">
+      <h2>🎵 Agora Tocando</h2>
+      <audio id="audio" controls>
+        <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
+        Seu navegador não suporta o player de áudio.
+      </audio>
+    </div>
   </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const disc = document.querySelector('.vinil-disc');
+
+    audio.addEventListener('play', () => {
+      disc.style.animationPlayState = 'running';
+      disc.style.animationDuration = '3s'; // velocidade do giro
+    });
+
+    audio.addEventListener('pause', () => {
+      disc.style.animationPlayState = 'paused';
+    });
+
+    audio.addEventListener('ended', () => {
+      disc.style.animationPlayState = 'paused';
+    });
+  </script>
 
 </body>
 </html>
