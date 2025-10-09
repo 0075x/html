@@ -153,8 +153,11 @@
         inset 0 0 20px #444,
         0 0 10px rgba(255, 255, 255, 0.1);
       position: relative;
-      animation: spin 0s linear infinite paused;
+      animation: spin 3s linear infinite paused;
       flex-shrink: 0;
+      background-image: url('https://i.imgur.com/3vJjj7Y.png'); /* Exemplo de imagem disco */
+      background-size: cover;
+      background-position: center;
     }
 
     .vinil-disc::before {
@@ -262,7 +265,6 @@
 
     audio.addEventListener('play', () => {
       disc.style.animationPlayState = 'running';
-      disc.style.animationDuration = '3s'; // velocidade do giro
     });
 
     audio.addEventListener('pause', () => {
