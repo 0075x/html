@@ -130,7 +130,30 @@
     .item-name {
       font-size: 16px;
       font-weight: bold;
-    }  
+    }
+
+    /* 🎵 Estilo para player de música */
+    .music-player {
+      margin-top: 60px;
+      text-align: center;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .music-player h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .music-player audio {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -146,7 +169,6 @@
 
   <div class="username">AWAYFPS</div>
 
-  <!-- ✅ Redes sociais com links e hover -->
   <div class="socials">
     <a href="https://www.instagram.com/fxgsr" target="_blank">
       <img src="https://github.com/user-attachments/assets/88a7c010-8992-4602-a903-279921c30daf" alt="Instagram" />
@@ -177,6 +199,15 @@
         <div class="item-name">Fallen Festa Candy Speed+</div>
       </div>
     </div>
+  </div>
+
+  <!-- 🎵 Player de música -->
+  <div class="music-player">
+    <h2>🎵 Agora Tocando</h2>
+    <audio controls>
+      <source src="sua-musica.mp3" type="audio/mpeg">
+      Seu navegador não suporta o player de áudio.
+    </audio>
   </div>
 
 </body>
