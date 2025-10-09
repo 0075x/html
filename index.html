@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>awayvlr</title>
   <style>
     body {
@@ -132,18 +132,35 @@
       font-weight: bold;
     }
 
-    /* Container do player + disco */
+    /* 🎵 Player com vinil no estilo da imagem */
     .music-container {
       margin-top: 60px;
+      background: #777;
+      border-radius: 20px;
+      width: 520px;
+      height: 220px;
       display: flex;
+      padding: 20px;
+      box-sizing: border-box;
+      gap: 30px;
       align-items: center;
-      gap: 40px;
-      max-width: 700px;
-      width: 100%;
-      justify-content: center;
+      color: white;
+      font-family: Arial, sans-serif;
     }
 
-    /* Disco de vinil com capa da música */
+    /* Quadrado branco para o vinil */
+    .vinil-container {
+      width: 180px;
+      height: 180px;
+      background: white;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 10px #bbb;
+      flex-shrink: 0;
+    }
+
     .vinil-disc {
       width: 150px;
       height: 150px;
@@ -153,10 +170,9 @@
       background-position: center;
       box-shadow:
         inset 0 0 20px #444,
-        0 0 10px rgba(255, 255, 255, 0.1);
+        0 0 10px rgba(0,0,0,0.5);
       position: relative;
       animation: spin 3s linear infinite paused;
-      flex-shrink: 0;
       border: 4px solid #222;
     }
 
@@ -179,77 +195,112 @@
       }
     }
 
-    /* Player customizado */
-    .music-player {
-      text-align: center;
-      padding: 20px;
-      background-color: #1a1a1a;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    /* Controles lado direito */
+    .controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 180px;
     }
 
-    .music-player h2 {
-      margin-bottom: 15px;
-      font-size: 20px;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    .custom-controls {
+    /* Barra de progresso com tempos */
+    .progress-bar {
       display: flex;
       align-items: center;
       gap: 10px;
-      background-color: #222;
-      padding: 10px;
-      border: 2px solid #444;
-      border-radius: 0; /* bordas quadradas */
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      font-size: 14px;
+      user-select: none;
+      color: white;
     }
 
-    .custom-controls button {
+    .progress-bar input[type="range"] {
+      flex: 1;
+      appearance: none;
+      height: 4px;
+      border-radius: 2px;
+      background: #444;
+      cursor: pointer;
+    }
+
+    .progress-bar input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #eee;
+      cursor: pointer;
+      border: none;
+      margin-top: -4px;
+    }
+
+    .progress-bar input[type="range"]::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #eee;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Botões centrais */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      user-select: none;
+    }
+
+    .buttons button {
       background: none;
       border: none;
       color: white;
-      font-size: 24px;
       cursor: pointer;
-      padding: 5px;
+      font-size: 28px;
+      padding: 8px;
+      transition: color 0.2s;
     }
 
-    .custom-controls input[type="range"] {
+    .buttons button:hover {
+      color: #ddd;
+    }
+
+    /* Barra de volume */
+    .volume-bar {
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
+    }
+
+    .volume-bar input[type="range"] {
+      width: 100%;
+      max-width: 200px;
       appearance: none;
-      height: 5px;
-      background: #555;
-      border-radius: 0;
+      height: 4px;
+      border-radius: 2px;
+      background: #444;
       cursor: pointer;
-      outline: none;
     }
 
-    .custom-controls input[type="range"]::-webkit-slider-thumb {
+    .volume-bar input[type="range"]::-webkit-slider-thumb {
       appearance: none;
       width: 12px;
       height: 12px;
-      background: white;
+      border-radius: 50%;
+      background: #eee;
+      cursor: pointer;
       border: none;
-      border-radius: 0;
-      cursor: pointer;
+      margin-top: -4px;
     }
 
-    .custom-controls input[type="range"]::-moz-range-thumb {
+    .volume-bar input[type="range"]::-moz-range-thumb {
       width: 12px;
       height: 12px;
-      background: white;
-      border-radius: 0;
+      border-radius: 50%;
+      background: #eee;
       cursor: pointer;
-    }
-
-    #progress {
-      flex: 1;
-    }
-
-    #volume {
-      width: 80px;
+      border: none;
     }
   </style>
 </head>
@@ -298,65 +349,88 @@
     </div>
   </div>
 
-  <!-- Player + disco de vinil -->
+  <!-- Player com disco de vinil e controles -->
   <div class="music-container">
-    <div class="vinil-disc"></div>
-    <div class="music-player">
-      <h2>🎵 Agora Tocando</h2>
-      <div class="custom-controls">
-        <button id="btnPlay">▶️</button>
-        <input type="range" id="progress" value="0" step="0.1" />
+    <div class="vinil-container">
+      <div class="vinil-disc"></div>
+    </div>
+    <div class="controls">
+      <div class="progress-bar">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress" min="0" max="100" step="0.1" value="0" />
+        <span id="duration">0:00</span>
+      </div>
+      <div class="buttons">
+        <button id="btnRewind" aria-label="Retroceder">&#9664;&#9664;</button>
+        <button id="btnPlayPause" aria-label="Play">&#9654;</button>
+        <button id="btnForward" aria-label="Avançar">&#9654;&#9654;</button>
+      </div>
+      <div class="volume-bar">
         <input type="range" id="volume" min="0" max="1" step="0.05" value="1" />
       </div>
-      <audio id="audio">
-        <source src="https://github.com/user-attachments/files/22789442/Hit.2.mp3" type="audio/mpeg" />
-      </audio>
     </div>
   </div>
 
+  <audio id="audio" src="https://github.com/user-attachments/files/22789442/Hit.2.mp3"></audio>
+
   <script>
     const audio = document.getElementById('audio');
-    const disc = document.querySelector('.vinil-disc');
-    const btnPlay = document.getElementById('btnPlay');
     const progress = document.getElementById('progress');
+    const currentTimeElem = document.getElementById('current-time');
+    const durationElem = document.getElementById('duration');
+    const btnPlayPause = document.getElementById('btnPlayPause');
+    const btnRewind = document.getElementById('btnRewind');
+    const btnForward = document.getElementById('btnForward');
     const volume = document.getElementById('volume');
+    const disc = document.querySelector('.vinil-disc');
 
-    btnPlay.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        btnPlay.textContent = '⏸️';
-        disc.style.animationPlayState = 'running';
-      } else {
-        audio.pause();
-        btnPlay.textContent = '▶️';
-        disc.style.animationPlayState = 'paused';
-      }
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      progress.max = audio.duration;
+      durationElem.textContent = formatTime(audio.duration);
     });
 
     audio.addEventListener('timeupdate', () => {
-      progress.max = audio.duration;
       progress.value = audio.currentTime;
+      currentTimeElem.textContent = formatTime(audio.currentTime);
     });
 
     progress.addEventListener('input', () => {
       audio.currentTime = progress.value;
     });
 
+    btnPlayPause.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        btnPlayPause.textContent = '❚❚'; // símbolo de pause
+        disc.style.animationPlayState = 'running';
+      } else {
+        audio.pause();
+        btnPlayPause.textContent = '▶'; // símbolo de play
+        disc.style.animationPlayState = 'paused';
+      }
+    });
+
+    btnRewind.addEventListener('click', () => {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    });
+
+    btnForward.addEventListener('click', () => {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+    });
+
     volume.addEventListener('input', () => {
       audio.volume = volume.value;
     });
 
-    audio.addEventListener('play', () => {
-      disc.style.animationPlayState = 'running';
-    });
-
-    audio.addEventListener('pause', () => {
-      disc.style.animationPlayState = 'paused';
-    });
-
     audio.addEventListener('ended', () => {
+      btnPlayPause.textContent = '▶';
       disc.style.animationPlayState = 'paused';
-      btnPlay.textContent = '▶️';
     });
   </script>
 
